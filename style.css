@@ -1,0 +1,435 @@
+/* =========================================================
+   1. Design tokens
+   ========================================================= */
+:root {
+  --bg: #0a0d17;
+  --tile: #111626;
+  --text: #eef1fa;
+  --muted: #8791ad;
+  --blue: #3b82f6;
+  --violet: #8b5cf6;
+  --green: #22c55e;
+  --gradient: linear-gradient(135deg, var(--blue), var(--violet));
+  --border: rgba(255, 255, 255, 0.08);
+  --border-hover: rgba(139, 92, 246, 0.55);
+  --radius: 20px;
+  --gap: 1rem;
+  --font-heading: "Sora", system-ui, sans-serif;
+  --font-body: "Inter", system-ui, sans-serif;
+}
+
+/* =========================================================
+   2. Reset and base
+   ========================================================= */
+*,
+*::before,
+*::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; scroll-padding-top: 80px; }
+
+body {
+  font-family: var(--font-body);
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.7;
+  overflow-x: hidden;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background:
+    radial-gradient(600px circle at 15% 0%, rgba(59, 130, 246, 0.16), transparent 70%),
+    radial-gradient(600px circle at 90% 20%, rgba(139, 92, 246, 0.14), transparent 70%);
+  pointer-events: none;
+}
+
+img { max-width: 100%; display: block; }
+a { color: inherit; text-decoration: none; }
+ul { list-style: none; }
+
+:focus-visible { outline: 2px solid var(--blue); outline-offset: 3px; border-radius: 6px; }
+
+.skip-link {
+  position: absolute;
+  left: 1rem;
+  top: -4rem;
+  background: var(--blue);
+  color: #fff;
+  padding: 0.6rem 1rem;
+  border-radius: 8px;
+  z-index: 200;
+}
+.skip-link:focus { top: 1rem; }
+
+/* =========================================================
+   3. Layout helpers
+   ========================================================= */
+.container { width: min(1120px, 92%); margin-inline: auto; }
+.section { padding: clamp(3.5rem, 8vw, 6rem) 0; }
+
+.section-title {
+  font-family: var(--font-heading);
+  font-size: clamp(1.8rem, 4vw, 2.6rem);
+  line-height: 1.2;
+  margin-bottom: 2rem;
+}
+
+.gradient-text {
+  background: var(--gradient);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* =========================================================
+   4. Navbar and mobile menu
+   ========================================================= */
+.navbar {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(10, 13, 23, 0.75);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--border);
+}
+
+.nav-container {
+  width: min(1120px, 92%);
+  margin-inline: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 68px;
+}
+
+.logo { font-family: var(--font-heading); font-size: 1.4rem; font-weight: 700; }
+.logo span { color: var(--violet); }
+
+.nav-links { display: flex; gap: 0.4rem; }
+.nav-links a {
+  display: block;
+  padding: 0.45rem 0.95rem;
+  border-radius: 999px;
+  color: var(--muted);
+  font-size: 0.95rem;
+  font-weight: 500;
+  transition: color 0.2s, background 0.2s;
+}
+.nav-links a:hover { color: var(--text); background: rgba(255, 255, 255, 0.07); }
+
+/* Hamburger button (hidden on desktop) */
+.nav-toggle {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  width: 44px;
+  height: 44px;
+  padding: 0 10px;
+  background: transparent;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  cursor: pointer;
+}
+.nav-toggle span {
+  display: block;
+  height: 2px;
+  background: var(--text);
+  border-radius: 2px;
+  transition: transform 0.25s, opacity 0.25s;
+}
+.nav-toggle[aria-expanded="true"] span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.nav-toggle[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
+.nav-toggle[aria-expanded="true"] span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+/* =========================================================
+   5. Buttons
+   ========================================================= */
+.btn {
+  display: inline-block;
+  padding: 0.8rem 1.5rem;
+  border-radius: 999px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+}
+.btn:hover { transform: translateY(-2px); }
+.btn-primary { background: var(--gradient); color: #fff; box-shadow: 0 10px 28px rgba(99, 102, 241, 0.35); }
+.btn-primary:hover { box-shadow: 0 14px 34px rgba(99, 102, 241, 0.5); }
+.btn-outline { border: 1px solid var(--border); background: rgba(255, 255, 255, 0.03); }
+.btn-outline:hover { border-color: var(--border-hover); }
+
+/* =========================================================
+   6. Tiles
+   ========================================================= */
+.tile {
+  background: var(--tile);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.6rem;
+  transition: border-color 0.25s, transform 0.25s, box-shadow 0.25s;
+}
+.tile:hover {
+  border-color: var(--border-hover);
+  transform: translateY(-3px);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.35);
+}
+
+.tile-label {
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+  font-weight: 600;
+  margin-bottom: 0.35rem;
+}
+
+.bento { display: grid; gap: var(--gap); }
+
+/* =========================================================
+   7. Hero bento
+   ========================================================= */
+.hero { padding: clamp(2rem, 6vw, 4rem) 0 1rem; }
+
+.hero-bento {
+  grid-template-columns: 1.1fr 1.1fr 0.9fr;
+  grid-template-areas:
+    "intro  intro  photo"
+    "status links  photo"
+    "tech   tech   tech";
+}
+.tile-intro  { grid-area: intro; padding: clamp(1.6rem, 4vw, 2.6rem); }
+.tile-photo  { grid-area: photo; padding: 0; overflow: hidden; min-height: 340px; }
+.tile-status { grid-area: status; display: flex; gap: 0.9rem; align-items: center; }
+.tile-links  { grid-area: links; display: flex; flex-direction: column; justify-content: center; gap: 0.2rem; }
+.tile-tech   { grid-area: tech; padding: 1rem 0; overflow: hidden; }
+
+.eyebrow { color: var(--blue); font-weight: 600; }
+
+.tile-intro h1 {
+  font-family: var(--font-heading);
+  font-size: clamp(2.4rem, 6vw, 4rem);
+  line-height: 1.08;
+  letter-spacing: -0.02em;
+}
+
+.hero-title { font-size: clamp(1.1rem, 2.4vw, 1.4rem); color: var(--text); font-weight: 600; margin: 0.7rem 0 1rem; }
+.hero-intro { color: var(--text); opacity: 0.85; max-width: 56ch; }
+.hero-support { color: var(--muted); max-width: 56ch; margin-top: 0.8rem; font-size: 0.95rem; }
+.hero-actions { display: flex; flex-wrap: wrap; gap: 0.8rem; margin-top: 1.8rem; }
+
+.tile-photo img { width: 100%; height: 100%; object-fit: cover; }
+
+.status-dot {
+  flex-shrink: 0;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--green);
+  box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.6);
+  animation: pulse 2s infinite;
+}
+.status-text { font-weight: 500; line-height: 1.4; }
+
+@keyframes pulse {
+  70%  { box-shadow: 0 0 0 10px rgba(34, 197, 94, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0); }
+}
+
+.tile-links a {
+  font-family: var(--font-heading);
+  font-weight: 600;
+  padding: 0.2rem 0;
+  transition: color 0.2s;
+}
+.tile-links a:hover { color: var(--violet); }
+
+.marquee { display: flex; overflow: hidden; }
+.marquee-track {
+  display: flex;
+  flex-shrink: 0;
+  gap: 0.8rem;
+  padding-right: 0.8rem;
+  min-width: 100%;
+  justify-content: space-around;
+  animation: scroll 28s linear infinite;
+}
+.marquee-track li {
+  white-space: nowrap;
+  padding: 0.4rem 1.1rem;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  color: var(--muted);
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+@keyframes scroll { to { transform: translateX(-100%); } }
+
+/* =========================================================
+   8. About bento
+   ========================================================= */
+.about-bento {
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-areas:
+    "text text text text"
+    "a    b    c    d";
+}
+.about-text { grid-area: text; color: var(--muted); display: grid; gap: 1rem; max-width: none; }
+.about-text p { max-width: 90ch; }
+.fact { font-family: var(--font-heading); font-weight: 600; line-height: 1.4; }
+
+/* =========================================================
+   9. Skills
+   ========================================================= */
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--gap);
+}
+.skill-tile h3 {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-family: var(--font-heading);
+  font-size: 1.05rem;
+  margin-bottom: 1rem;
+}
+
+.icon {
+  flex-shrink: 0;
+  width: 22px;
+  height: 22px;
+  fill: none;
+  stroke: var(--violet);
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.chips { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+.chips li {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.35rem 0.85rem;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.03);
+  font-size: 0.9rem;
+}
+.level {
+  font-size: 0.7rem;
+  font-weight: 600;
+  padding: 0.1rem 0.5rem;
+  border-radius: 999px;
+  color: #c4b5fd;
+  background: rgba(139, 92, 246, 0.18);
+}
+
+/* "Currently Exploring" is visibly different from real skills */
+.tile-exploring { border-style: dashed; background: transparent; }
+.tile-exploring .chips li { border-style: dashed; color: var(--muted); }
+.tile-exploring .note { margin-top: 0.9rem; font-size: 0.82rem; color: var(--muted); line-height: 1.5; }
+
+/* =========================================================
+   10. Contact
+   ========================================================= */
+.contact-tile { max-width: 680px; }
+.contact-tile > p { color: var(--muted); margin-bottom: 1.2rem; }
+.contact-links { display: grid; gap: 1rem; }
+.contact-links .tile-label { display: block; margin-bottom: 0.1rem; }
+.contact-links a { color: var(--blue); font-weight: 500; overflow-wrap: anywhere; }
+.contact-links a:hover { text-decoration: underline; }
+
+/* =========================================================
+   11. Footer
+   ========================================================= */
+.footer { text-align: center; padding: 2rem 1rem; color: var(--muted); border-top: 1px solid var(--border); font-size: 0.9rem; }
+
+/* =========================================================
+   12. Responsive breakpoints
+   ========================================================= */
+
+/* Large screens */
+@media (min-width: 1400px) {
+  .container, .nav-container { width: min(1240px, 92%); }
+}
+
+/* Tablet: under 1024px */
+@media (max-width: 1024px) {
+  .skills-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+/* Mobile menu: under 760px */
+@media (max-width: 760px) {
+  .nav-toggle { display: flex; }
+
+  .nav-links {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    display: none;
+    flex-direction: column;
+    gap: 0.2rem;
+    padding: 0.8rem 4% 1.2rem;
+    background: rgba(10, 13, 23, 0.97);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-links.open { display: flex; }
+  .nav-links a { padding: 0.8rem 1rem; font-size: 1rem; }
+}
+
+/* Small tablet: under 860px */
+@media (max-width: 860px) {
+  .hero-bento {
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas:
+      "intro  intro"
+      "photo  status"
+      "photo  links"
+      "tech   tech";
+  }
+  .tile-photo { min-height: 300px; }
+  .about-bento {
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-areas:
+      "text text"
+      "a    b"
+      "c    d";
+  }
+}
+
+/* Phone: under 600px */
+@media (max-width: 600px) {
+  .nav-container { height: 60px; }
+
+  .hero-bento {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "photo"
+      "intro"
+      "status"
+      "links"
+      "tech";
+  }
+  .tile-photo { min-height: 0; aspect-ratio: 1 / 1; }
+  .tile-photo img { object-position: center top; }
+  .hero-actions .btn { flex: 1 1 100%; text-align: center; }
+
+  .about-bento { grid-template-columns: 1fr; grid-template-areas: "text" "a" "b" "c" "d"; }
+  .skills-grid { grid-template-columns: 1fr; }
+  .tile:hover { transform: none; }
+}
+
+/* =========================================================
+   13. Accessibility: respect reduced-motion settings
+   ========================================================= */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+}
