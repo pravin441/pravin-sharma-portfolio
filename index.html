@@ -6,6 +6,17 @@
   <meta name="description" content="Pravin Sharma is a Full Stack Developer (MERN) from Surat, Gujarat, India. BCA student building web applications with MongoDB, Express.js, React and Node.js." />
   <meta name="theme-color" content="#0a0d17" />
   <title>Pravin Sharma | Full Stack Developer (MERN)</title>
+  <script>
+    /* Apply saved or system theme before first paint to avoid a flash */
+    (function () {
+      var d = document.documentElement;
+      d.classList.add("js");
+      var t = null;
+      try { t = localStorage.getItem("theme"); } catch (e) {}
+      if (t !== "light" && t !== "dark") t = window.matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark";
+      d.setAttribute("data-theme", t);
+    })();
+  </script>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Sora:wght@500;600;700&display=swap" rel="stylesheet" />
@@ -25,6 +36,8 @@
     <!-- NEW icons for Module 02 sections -->
     <symbol id="i-book" viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></symbol>
     <symbol id="i-qr" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><path d="M14 14h3v3h-3zM20 14v.01M14 20h3M20 17v4"/></symbol>
+    <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></symbol>
+    <symbol id="i-moon" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></symbol>
     <symbol id="i-cap" viewBox="0 0 24 24"><path d="M22 10 12 5 2 10l10 5 10-5z"/><path d="M6 12v5c3 2 9 2 12 0v-5"/></symbol>
   </svg>
 
@@ -34,10 +47,6 @@
     <nav class="nav-container" aria-label="Main navigation">
       <a href="#home" class="logo">Pravin<span>.</span></a>
 
-      <button class="nav-toggle" id="nav-toggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="nav-menu">
-        <span></span><span></span><span></span>
-      </button>
-
       <ul class="nav-links" id="nav-menu">
         <li><a href="#home">Home</a></li>
         <li><a href="#about">About</a></li>
@@ -46,6 +55,16 @@
         <li><a href="#projects">Projects</a></li>
         <li><a href="#contact">Contact</a></li>
       </ul>
+
+      <div class="nav-actions">
+        <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Switch to light theme">
+          <svg class="icon icon-sun" aria-hidden="true"><use href="#i-sun"/></svg>
+          <svg class="icon icon-moon" aria-hidden="true"><use href="#i-moon"/></svg>
+        </button>
+        <button class="nav-toggle" id="nav-toggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="nav-menu">
+        <span></span><span></span><span></span>
+      </button>
+      </div>
     </nav>
   </header>
 
@@ -301,7 +320,7 @@
             <p>Open to conversations about internships, projects and full-stack roles. Reach out:</p>
             <ul class="contact-links">
               <li><span class="tile-label">Email</span><a href="mailto:ps3400486@gmail.com">ps3400486@gmail.com</a></li>
-              <li><span class="tile-label">LinkedIn</span><a href="https://www.linkedin.com/in/pravin-sharma-9a2817315/" target="_blank" rel="noopener">linkedin.com/in/Pravin-Sharma-</a></li>
+              <li><span class="tile-label">LinkedIn</span><a href="https://www.linkedin.com/in/pravin-sharma-9a2817315/" target="_blank" rel="noopener">linkedin.com/in/Pravin-Sharma</a></li>
               <li><span class="tile-label">GitHub</span><a href="https://github.com/pravin441" target="_blank" rel="noopener">github.com/pravin441</a></li>
               <li><span class="tile-label">Location</span><span>Surat, Gujarat, India</span></li>
             </ul>
@@ -315,15 +334,21 @@
 
             <div class="field">
               <label for="name">Name</label>
-              <input id="name" name="name" type="text" autocomplete="name" required />
+              <input id="name" name="name" type="text" autocomplete="name" required minlength="2" maxlength="80" aria-describedby="name-error" />
+              <p class="field-error" id="name-error"></p>
             </div>
             <div class="field">
               <label for="email">Email</label>
-              <input id="email" name="email" type="email" autocomplete="email" required />
+              <input id="email" name="email" type="email" autocomplete="email" required aria-describedby="email-error" />
+              <p class="field-error" id="email-error"></p>
             </div>
             <div class="field">
               <label for="message">Message</label>
-              <textarea id="message" name="message" rows="5" required></textarea>
+              <textarea id="message" name="message" rows="5" required minlength="10" maxlength="500" aria-describedby="message-error message-count"></textarea>
+              <div class="field-meta">
+                <p class="field-error" id="message-error"></p>
+                <p class="field-count" id="message-count">0 / 500</p>
+              </div>
             </div>
             <button type="submit" class="btn btn-primary">Send message</button>
             <p class="form-status" id="form-status" role="status" aria-live="polite"></p>
