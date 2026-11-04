@@ -1,38 +1,40 @@
 # Pravin Sharma | Developer Portfolio
 
-Responsive personal portfolio built with HTML, CSS and JavaScript as part of
-Modules 02 (Responsive Design and Styling) and 03 (JavaScript Features) of the
-Codomax Digital Solutions Web Development Internship.
+Personal portfolio of Pravin Sharma, a BCA student and Full Stack Developer (MERN) from Surat, Gujarat, India. Built during the Web Development Internship at Codomax Digital Solutions.
+
+**Live site:** [LIVE URL]
 
 ## Features
-- Responsive layout for mobile (320px+), tablet (768px+), laptop (1024px+) and large desktop (1440px+)
-- CSS Grid and Flexbox layouts driven by custom properties (design tokens)
-- Sticky navbar, hamburger menu on mobile, smooth scrolling and active link highlighting
-- Sections: Home, About, Education, Skills, Projects, Contact
-- Accessible: skip link, visible focus states, ARIA on the menu, reduced-motion support
-- Contact form (Web3Forms) with client-side validation
 
-## Module 03: JavaScript features
-- Dark/light theme toggle: follows the system setting by default, remembers the choice (localStorage), no flash on load
-- Mobile navigation menu: closes on link click, Escape and outside click
-- Scroll animations: subtle fade-in using IntersectionObserver, disabled for reduced-motion users
-- Smooth scrolling with active link highlighting and a navbar shadow on scroll
-- Contact form validation: per-field messages, email check, minimum message length and a character counter
+- Responsive bento-style layout for mobile, tablet and desktop
+- Dark and light themes, saved in local storage
+- Mobile navigation menu, smooth scrolling and active-section highlighting
+- Scroll-reveal animations and a typing effect, with reduced-motion support
+- Sections: Home, About, Skills, Internship Experience, Projects, Education and Certification, Resume, Contact
+- Contact form with client-side validation
+- Accessible markup: semantic landmarks, skip link, visible focus states, ARIA labels
 
-## Project structure
-```
-index.html
-style.css
-script.js
-assets/images/profile.jpg
-```
+## Built with
+
+HTML5, CSS3 (Grid, Flexbox, custom properties) and vanilla JavaScript (ES6+, Intersection Observer, Local Storage). No frameworks.
+
+## Projects featured
+
+- **StudySphere:** Student Learning and Assignment Management System (MongoDB, Express.js, React.js, Node.js). [Repository](https://github.com/pravin441/Studysphere)
+- **VendorVerify:** Smart QR Authentication System, built during the CivoraX Internship Program at Civora Nexus.
+
+## Screenshots
+
+![Desktop view](assets/images/screenshot-desktop.png)
+![Mobile view](assets/images/screenshot-mobile.png)
 
 ## Run locally
+
+```bash
+git clone https://github.com/pravin441/pravin-sharma-portfolio.git
+cd pravin-sharma-portfolio
+```
+
 Open `index.html` in a browser, or use the VS Code Live Server extension.
 
-## Contact form setup
-Create a free access key at https://web3forms.com and replace `YOUR_ACCESS_KEY` in `index.html`.
-
-## Links
-- GitHub: https://github.com/pravin441
-- LinkedIn: https://www.linkedin.com/in/pravin-sharma-9a2817315/
+## Folder structure
